@@ -1,0 +1,7 @@
+const settings = {
+	CLIENT_ID: 'PASTE YOUR ID HERE',
+	CLIENT_SECRET: 'PASTE YOUR SECRET HERE',
+	REDIRECT_URI: 'http://127.0.0.1:8383/auth/streamlabs/callback'
+};
+
+export default settings;
