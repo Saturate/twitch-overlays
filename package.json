@@ -4,11 +4,16 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
+    "@babel/polyfill": "^7.0.0-beta.42",
     "@babel/preset-env": "^7.0.0-beta.42",
-    "babel-preset-env": "^1.6.1",
     "body-parser": "^1.18.2",
+    "chalk": "^2.3.2",
     "cookie-parser": "^1.4.3",
     "cookie-session": "^2.0.0-beta.3",
+    "ejs": "^2.5.8",
+    "express-graphql": "^0.6.12",
+    "graphql": "^0.13.2",
+    "node-fetch": "^2.1.2",
     "passport": "^0.4.0",
     "passport-streamlabs": "^1.0.3",
     "requestify": "^0.2.5",
@@ -21,8 +26,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node ./server/index.js",
-    "dev": "nodemon ./server/index.js"
+    "dev": "nodemon ./server/index.js --ignore 'client/**/*'"
   },
-  "author": "",
+  "author": "Allan Kimmer Jensen",
   "license": "ISC"
 }
