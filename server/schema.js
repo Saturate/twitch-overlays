@@ -8,6 +8,7 @@ import {
     GraphQLSchema
 } from 'graphql';
 
+import requestify from 'requestify';
 import fetch from 'node-fetch';
 
 const DonationType = new GraphQLObjectType({
@@ -37,34 +38,73 @@ const RootQuery = new GraphQLObjectType({
                 return json.socket_token;
             }
         },
-        donations: {
+        allDonations: {
             type: new GraphQLList(DonationType),
             args: {},
-            resolve (parentValue, args) {
-                const mockdata = {
-                    data: [
-                        {
-                            donation_id: 102348567,
-                            created_at: 1522143180,
-                            currency: "USD",
-                            amount: "34.0000000000",
-                            name: "fishsticks",
-                            message: "gege",
-                            email: "O0rbekiYDG"
-                        },
-                        {
-                            donation_id: 102072012,
-                            created_at: 1521465960,
-                            currency: "USD",
-                            amount: "10.0000000000",
-                            name: "TestName",
-                            message: "YOU ARE THE BEST!",
-                            email: "dD2MQW9Jzb"
-                        }
-                    ]
-                };
+            async resolve (parentValue, args, context) {
+                const maxLimit = 100;
 
-                return mockdata.data;
+                async function getAllDonations (lastId, lastData, times) {
+                    let callTimes = times + 1 || 1;
+                    return await requestify.request('https://streamlabs.com/api/v1.0/donations', {
+                        method: 'GET',
+                        timeout: 3000,
+                        dataType: 'json',
+                        params: {
+                            limit: maxLimit,
+                            before: lastId,
+                            access_token: context.user.token
+                        }	
+                    })
+                    .then(function(response) {
+                        const data = response.getBody().data;
+                        const lastDonationId = data[data.length-1].donation_id;
+
+                        // If there are "maxLimit" results, we have to assume that there are more.
+                        // We don't know the totalt amount. This might make a useless request, but it's the only thing we can do.
+                        if(data.length >= maxLimit) {
+                            console.log('calling again');
+                            return getAllDonations(lastDonationId, data.concat(lastData || []), callTimes);
+                        }
+
+                        return data.concat(lastData || []);
+                    })
+                    .catch((err) => console.error)
+                    .fail((err) => console.error)
+                }
+
+                const allDonations = await getAllDonations();
+
+                await console.log('Found:', allDonations && allDonations.length || '0', 'donations');
+
+                return allDonations;
+            }
+        },
+        donations: {
+            type: new GraphQLList(DonationType),
+            args: {
+                limit: { type: GraphQLInt, defaultValue: 100 },
+                before: { type: GraphQLInt },
+                after: { type: GraphQLInt }
+            },
+            async resolve (parentValue, args, context) {
+                const donations = await requestify.request('https://streamlabs.com/api/v1.0/donations', {
+                    method: 'GET',
+                    timeout: 3000,
+                    dataType: 'json',
+                    params: {
+                        limit: args.limit,
+                        before: args.before,
+                        access_token: context.user.token
+                    }	
+                })
+                .then(function(response) {
+                    return response.getBody().data;
+                })
+                .catch((err) => console.error)
+                .fail((err) => console.error);
+
+                return donations;
             }
         }
     }
