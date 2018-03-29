@@ -1,8 +1,22 @@
 version: "2"
 services:
-  app:
-    container_name: app
+  wonderlays:
+    container_name: wonderlays
     restart: always
     build: .
-    ports:
-      - "8383:8383"
+    networks:
+      - web
+      - default
+    expose:
+      - "8383"
+    labels:
+      - "traefik.backend=my-awesome-app-app"
+      - "traefik.docker.network=web"
+      - "traefik.frontend.rule=Host:wonderlays.akj.io"
+      - "traefik.enable=true"
+      - "traefik.port=8383"
+      - "traefik.default.protocol=http"
+
+networks:
+  web:
+    external: true
