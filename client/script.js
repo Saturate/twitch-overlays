@@ -76,7 +76,7 @@ class BottomDonatorWidget extends React.Component {
 	}
 }
 
-class TopDonantorListWidget extends React.Component {
+class TopDonatorListWidget extends React.Component {
 	constructor(props) {
 		super(props);
 
@@ -143,7 +143,7 @@ class Home extends React.Component {
 			<h1>Welcome, {this.state.currentUser}</h1>
 			<p>This is a overview, this should be used to navigate to the component you want in OBS Browser Source.</p>
 			<p><a href="#/BottomDonator">Open Bottom Donator Widget.</a></p>
-			<p><a href="#/TopDonantorList/25">Open TopDonantor List Widget.</a></p>
+			<p><a href="#/TopDonatorList/25">Open TopDonator List Widget.</a></p>
 		</div>;
 	}
 }
@@ -158,7 +158,7 @@ class App extends React.Component{
 			<Switch>
 				<Route exact path='/' component={Home}/>
 				<Route path='/BottomDonator' component={BottomDonatorWidget}/>
-				<Route path='/TopDonantorList/:number' component={TopDonantorListWidget}/>
+				<Route path='/TopDonator List/:number' component={TopDonatorListWidget}/>
 			</Switch>
 		</div>;
 	}
