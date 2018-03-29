@@ -1,3 +1,7 @@
+import debug from 'debug';
+
+const log = debug('utilities:getTopDonators');
+
 function compareAmount(a, b) {
 	return b.amount - a.amount;
 }
@@ -11,17 +15,19 @@ function getTopDonators(allDonations) {
 	
 		if(!donator) {
 			topDonators.push({
+				donation_id: donation.donation_id,
 				name: donation.name,
+				currency: donation.currency,
 				amount: parseInt(donation.amount, 10)
 			});
 		} else {
 			donator.amount = donator.amount + parseInt(donation.amount, 10);
 		}
 	
-		console.log(donator);
+		log(donator);
 	});
 
-	console.log(`Return ${topDonators.length} donators.`);
+	log(`Return ${topDonators.length} donators.`);
 
 	return topDonators.sort(compareAmount);
 }

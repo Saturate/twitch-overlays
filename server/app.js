@@ -90,6 +90,7 @@ app.get('/', function(req, res, next) {
 	}).then(function(response) {
 		log(response.getBody());
 		res.status(200).render('../client/index.ejs', {
+			name: req.user.name,
 			token: req.user.token,
 			socket_token: response.getBody().socket_token
 		});

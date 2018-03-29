@@ -85,9 +85,12 @@ const RootQuery = new GraphQLObjectType({
 		topDonations: {
 			type: new GraphQLList(DonationType),
 			args: {
+				top: { type: GraphQLInt, defaultValue: 10 },
 			},
 			async resolve (parentValue, args, context) {
 				const maxLimit = 100;
+
+				console.log('context', context.user);
 
 				async function getAllDonations (lastId, lastData, times) {
 					let callTimes = times + 1 || 1;
@@ -123,7 +126,11 @@ const RootQuery = new GraphQLObjectType({
 
 				await console.log('Found:', allDonations && allDonations.length || '0', 'donations');
 
-				return await getTopDonators(allDonations);
+				if (args.top !== 0) {
+					return await getTopDonators(allDonations).slice(0, args.top );
+				} else {
+					return await getTopDonators(allDonations);
+				}
 			}
 		},
 		donations: {
