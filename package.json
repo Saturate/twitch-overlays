@@ -21,10 +21,13 @@
   },
   "devDependencies": {
     "@babel/core": "^7.0.0-beta.42",
-    "@babel/register": "^7.0.0-beta.42"
+    "@babel/register": "^7.0.0-beta.42",
+    "debug": "^3.1.0",
+    "eslint": "^4.19.1",
+    "eslint-plugin-react": "^7.7.0"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "eslint **/*.js",
     "start": "node ./server/index.js",
     "dev": "nodemon ./server/index.js --ignore 'client/**/*'"
   },
