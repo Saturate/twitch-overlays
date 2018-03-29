@@ -10,12 +10,12 @@ services:
     expose:
       - "8383"
     labels:
-      - "traefik.backend=my-awesome-app-app"
+      - "traefik.backend=wonderlays"
       - "traefik.docker.network=web"
       - "traefik.frontend.rule=Host:wonderlays.akj.io"
       - "traefik.enable=true"
       - "traefik.port=8383"
-      - "traefik.default.protocol=http"
+      - "traefik.default.protocol=https"
 
 networks:
   web:
