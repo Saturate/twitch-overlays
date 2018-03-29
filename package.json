@@ -1,7 +1,8 @@
 {
   "name": "wonderlays",
   "version": "1.0.0",
-  "description": "",
+  "description": "Responsive overlays for use with OBS Browser Source.",
+  "repository": "https://github.com/Saturate/twitch-overlays",
   "main": "index.js",
   "dependencies": {
     "@babel/polyfill": "^7.0.0-beta.42",
