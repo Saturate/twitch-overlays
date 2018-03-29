@@ -158,7 +158,7 @@ class App extends React.Component{
 			<Switch>
 				<Route exact path='/' component={Home}/>
 				<Route path='/BottomDonator' component={BottomDonatorWidget}/>
-				<Route path='/TopDonator List/:number' component={TopDonatorListWidget}/>
+				<Route path='/TopDonatorList/:number' component={TopDonatorListWidget}/>
 			</Switch>
 		</div>;
 	}
