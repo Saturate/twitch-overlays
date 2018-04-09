@@ -22,7 +22,7 @@ const DonationType = new GraphQLObjectType({
 		currency: { type: GraphQLString },
 		amount: { type: GraphQLString },
 		message: { type: GraphQLString },
-		email: { type: GraphQLString }
+		email: { type: GraphQLString, description: 'E-mail or ID from StreamLabs' }
 	}
 });
 
@@ -31,6 +31,7 @@ const RootQuery = new GraphQLObjectType({
 	fields: {
 		SocketToken: {
 			type: GraphQLString,
+			description: 'Token used for Socket.IO conenctions',
 			args: {},
 			async resolve (parentValue, args, context) {
 				console.log(parentValue, args, context.user.token);
