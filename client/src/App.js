@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route, Link, HashRouter, Switch } from 'react-router-dom';
+import { Route, Link, HashRouter, Switch, Redirect } from 'react-router-dom';
 import './App.css';
 
 import BottomDonatorWidget from './BottomDonatorWidget';
@@ -23,11 +23,20 @@ class Home extends React.Component {
 	}
 }
 
+class Login extends React.Component{
+	render(props) {
+		return <p>
+			Login here: <a href="//api.wonderlays.akj.localhost/login">Login here</a>
+		</p>;
+	}
+}
+
 class Main extends React.Component{
 	render() {
 		return <div>
 			<Switch>
 				<Route exact path='/' component={Home}/>
+				<Route exact path='/login' component={Login}/>
 				<Route path='/BottomDonator' component={BottomDonatorWidget}/>
 				<Route path='/TopDonatorList/:number' component={TopDonatorListWidget}/>
 			</Switch>
