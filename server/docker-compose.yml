@@ -19,6 +19,16 @@ services:
       - "traefik.port=8383"
       - "traefik.default.protocol=https"
 
+  wonderlays_db:
+    image: mongo
+    networks:
+      - web
+      - default
+    volumes:
+      - ./data:/data/db
+    ports:
+      - "27017:27017"
+
 networks:
   web:
     external: true
